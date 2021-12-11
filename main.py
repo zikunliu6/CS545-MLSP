@@ -36,8 +36,8 @@ PERFORM_LOSS_CHECKING = False
 FREEZE_G = False
 FREEZE_D = False
 
-NUM_DUMMY_TRN = 256   # 训练数据集总共256
-NUM_DUMMY_VAL = 128   # 验证数据集总共128
+NUM_DUMMY_TRN = 256 
+NUM_DUMMY_VAL = 128 
 
 EPSILON = 1e-40 # value to use to approximate zero (to prevent undefined results)
 
@@ -218,7 +218,7 @@ def run_training(model, optimizer, criterion, dataloader, ep, freeze_g=False, fr
 
         loss['d'] = criterion['d'](d_logits_real, d_logits_gen)
 
-        log_sum_real += d_logits_real.sum().item() # 将所有batach的得分都加起来
+        log_sum_real += d_logits_real.sum().item()
         log_sum_gen += d_logits_gen.sum().item()
 
         if not freeze_d:
@@ -243,7 +243,7 @@ def run_training(model, optimizer, criterion, dataloader, ep, freeze_g=False, fr
         g_feats, _ = model['g'](z, g_states, gen_batches)  # 32*8*1
         # feed real and generated input to discriminator
         d1, d_feats_real, _ = model['d'](batch_input, d_state, labels) # 32*8*1,
-        d2, d_feats_gen, _ = model['d'](gen_batches, d_state, g_feats) # 这里全部都是取的lstm的output
+        d2, d_feats_gen, _ = model['d'](gen_batches, d_state, g_feats) 
 
         # calculate loss, backprop, and update weights of G
         if args.feature_matching:
